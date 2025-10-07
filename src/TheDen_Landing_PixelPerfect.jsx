@@ -130,7 +130,7 @@ function ChartBG() {
   const offset = -SPACING * (candleElapsed / CANDLE_SECONDS);
 
   return (
-    <svg viewBox={`0 0 ${WIDTH} ${HEIGHT}`} className="absolute inset-0 h-full w-full select-none">
+    <svg viewBox={`0 0 ${WIDTH} ${HEIGHT}`} className="absolute inset-0 h-full w-full select-none pointer-events-none">
       <defs>
         <linearGradient id="grad" x1="0" y1="0" x2="0" y2="1">
           <stop offset="0%" stopColor="#0a0a0a" />
@@ -182,7 +182,7 @@ export default function TheDen_Landing_PixelPerfect() {
       <ChartBG />
 
       <div className="relative z-20 flex items-start justify-between px-4 sm:px-6 md:px-8 pt-4 sm:pt-6 md:pt-8">
-        <h1 className="text-[42px] sm:text-[56px] md:text-[72px] leading-none font-extrabold tracking-tight lowercase text-zinc-200">the den</h1>
+        <h1 className="text-[42px] sm:text-[56px] md:text-[clamp(28px,9vw,72px)] leading-none font-extrabold tracking-tight lowercase text-zinc-200">the den</h1>
         <button
           onClick={() => setOpenForm(true)}
           className="rounded-2xl border border-white/20 bg-white/8 px-5 py-2 text-[18px] text-zinc-100 backdrop-blur-xl transition hover:bg-white/12"
@@ -191,41 +191,41 @@ export default function TheDen_Landing_PixelPerfect() {
         </button>
       </div>
 
-      <div className="relative z-20 mt-[220px] sm:mt-[340px] md:mt-[520px] px-4 sm:px-6 md:px-8">
-        <Glass className="flex max-w-[860px] items-center gap-4 p-6">
+      <div className="relative z-20 mt-[220px] sm:mt-[340px] md:mt-10 sm:mt-24 md:mt-[420px] lg:mt-[520px] px-4 sm:px-6 md:px-8">
+        <Glass className="flex w-full max-w-[860px] items-center gap-4 p-5 sm:p-6">
           <div className="grid h-16 w-16 place-items-center rounded-full bg-[#2AABEE]">
             <svg width="28" height="28" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
               <path d="M21.5 3.5L2.8 10.4c-.7.3-.7 1.3-.1 1.6l4.5 1.6 1.7 5.3c.2.7 1.1.8 1.6.3l2.6-2.6 4.6 3.4c.6.5 1.5.1 1.7-.7l3.3-14.4c.2-.9-.6-1.6-1.3-1.2z" fill="white"/>
             </svg>
           </div>
           <div className="pr-2">
-            <div className="text-[40px] font-black leading-none tracking-tight">the den</div>
-            <div className="mt-1 text-[22px] text-zinc-300">Private Telegram Group</div>
+            <div className="text-[clamp(24px,6.5vw,40px)] font-black leading-none tracking-tight">the den</div>
+            <div className="mt-1 text-[18px] sm:text-[20px] md:text-[22px] text-zinc-300">Private Telegram Group</div>
           </div>
         </Glass>
 
-        <Glass className="mt-5 max-w-[860px] p-6">
+        <Glass className="mt-5 w-full max-w-[860px] p-5 sm:p-6">
           <input
             placeholder="Email address"
-            className="w-full bg-transparent text-[22px] placeholder:text-zinc-300/80 outline-none"
+            className="w-full bg-transparent text-[18px] sm:text-[20px] md:text-[22px] placeholder:text-zinc-300/80 outline-none"
           />
         </Glass>
 
-        <Glass className="mt-5 inline-flex max-w-[860px] items-center justify-center p-6">
+        <Glass className="mt-5 inline-flex w-full max-w-[860px] items-center justify-center p-5 sm:p-6">
           <button
             onClick={() => setOpenForm(true)}
-            className="flex w-full items-center justify-center gap-2 text-[26px] font-semibold text-zinc-100"
+            className="flex w-full items-center justify-center gap-2 text-[18px] sm:text-[22px] md:text-[26px] font-semibold text-zinc-100"
           >
             Request Invite
           </button>
         </Glass>
       </div>
 
-      <div className="pointer-events-none absolute inset-4 rounded-[28px] border border-white/8" />
+      <div className="pointer-events-none absolute inset-2 sm:inset-4 rounded-[20px] sm:rounded-[28px] border border-white/8 hidden xs:block sm:block" />
 
       {openForm && (
         <div className="fixed inset-0 z-50 grid place-items-center bg-black/70 backdrop-blur-sm overflow-y-auto">
-          <div className="w-[760px] max-w-[92vw] rounded-[26px] border border-white/12 bg-white/6 p-6 text-zinc-100 shadow-2xl">
+          <div className="w-full max-w-[760px] mx-4 my-6 rounded-[20px] md:rounded-[26px] border border-white/12 bg-white/6 p-4 sm:p-6 text-zinc-100 shadow-2xl">
             <div className="mb-4 flex items-center justify-between">
               <div className="text-2xl font-bold lowercase">request access — the den</div>
               <button
