@@ -178,11 +178,11 @@ export default function TheDen_Landing_PixelPerfect() {
   const [openForm, setOpenForm] = useState(false);
 
   return (
-    <main className="relative mx-auto min-h-screen max-w-[1280px] overflow-hidden bg-black text-zinc-100 [aspect-ratio:3/4] shadow-2xl">
+    <main className="relative mx-auto min-h-screen max-w-[1280px] overflow-hidden bg-black text-zinc-100 [aspect-ratio:3/4] sm:[aspect-ratio:3/4] md:[aspect-ratio:3/4] lg:[aspect-ratio:3/4] xl:[aspect-ratio:3/4] 2xl:[aspect-ratio:3/4] aspect-auto shadow-2xl">
       <ChartBG />
 
-      <div className="relative z-20 flex items-start justify-between px-8 pt-8">
-        <h1 className="text-[72px] leading-none font-extrabold tracking-tight lowercase text-zinc-200">the den</h1>
+      <div className="relative z-20 flex items-start justify-between px-4 sm:px-6 md:px-8 pt-4 sm:pt-6 md:pt-8">
+        <h1 className="text-[42px] sm:text-[56px] md:text-[72px] leading-none font-extrabold tracking-tight lowercase text-zinc-200">the den</h1>
         <button
           onClick={() => setOpenForm(true)}
           className="rounded-2xl border border-white/20 bg-white/8 px-5 py-2 text-[18px] text-zinc-100 backdrop-blur-xl transition hover:bg-white/12"
@@ -191,7 +191,7 @@ export default function TheDen_Landing_PixelPerfect() {
         </button>
       </div>
 
-      <div className="relative z-20 mt-[520px] px-8">
+      <div className="relative z-20 mt-[220px] sm:mt-[340px] md:mt-[520px] px-4 sm:px-6 md:px-8">
         <Glass className="flex max-w-[860px] items-center gap-4 p-6">
           <div className="grid h-16 w-16 place-items-center rounded-full bg-[#2AABEE]">
             <svg width="28" height="28" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
@@ -224,7 +224,7 @@ export default function TheDen_Landing_PixelPerfect() {
       <div className="pointer-events-none absolute inset-4 rounded-[28px] border border-white/8" />
 
       {openForm && (
-        <div className="fixed inset-0 z-50 grid place-items-center bg-black/70 backdrop-blur-sm">
+        <div className="fixed inset-0 z-50 grid place-items-center bg-black/70 backdrop-blur-sm overflow-y-auto">
           <div className="w-[760px] max-w-[92vw] rounded-[26px] border border-white/12 bg-white/6 p-6 text-zinc-100 shadow-2xl">
             <div className="mb-4 flex items-center justify-between">
               <div className="text-2xl font-bold lowercase">request access — the den</div>
