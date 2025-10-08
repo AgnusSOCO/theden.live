@@ -2,7 +2,6 @@ import { useEffect, useRef } from "react";
 import {
   ORDER_SPAWN_PER_SEC, ORDER_PRICE_DIST, MAX_RESTING_ORDERS, MAX_RECENT_FILLS, TICK_RATE, CANDLE_SECONDS
 } from "./constants";
-import useFillSound from "./useFillSound";
 
 /**
  * Orders: spawns resting orders around mid, detects fills by wick cross,
@@ -11,7 +10,6 @@ import useFillSound from "./useFillSound";
 export default function useOrders({ priceRef, dataRef, formingStartRef }) {
   const restingRef = useRef([]);  // {id, price, side, created}
   const fillsRef = useRef([]);    // {id, price, side, ts}
-  const sound = useFillSound();
 
   const randn = () => {
     let u = 0, v = 0; while (u === 0) u = Math.random(); while (v === 0) v = Math.random();
