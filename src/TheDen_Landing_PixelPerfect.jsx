@@ -192,6 +192,16 @@ function ChartBG() {
 export default function TheDen_Landing_PixelPerfect() {
   const [openForm, setOpenForm] = useState(false);
 
+  // Lock body scroll when modal is open (prevents background from moving on phones)
+  useEffect(() => {
+    if (openForm) {
+      document.body.classList.add("body-lock");
+    } else {
+      document.body.classList.remove("body-lock");
+    }
+    return () => document.body.classList.remove("body-lock");
+  }, [openForm]);
+
   return (
     <main
       className="
@@ -245,7 +255,7 @@ export default function TheDen_Landing_PixelPerfect() {
         <Glass className="mt-5 w-full max-w-[860px] p-5 sm:p-6">
           <input
             placeholder="Email address"
-            className="w-full bg-transparent text-[18px] sm:text-[20px] md:text-[22px] placeholder:text-zinc-300/80 outline-none"
+            className="w-full bg-transparent text-[16px] sm:text-[20px] md:text-[22px] placeholder:text-zinc-300/80 outline-none"
           />
         </Glass>
 
@@ -253,7 +263,7 @@ export default function TheDen_Landing_PixelPerfect() {
         <Glass className="mt-5 inline-flex w-full max-w-[860px] items-center justify-center p-5 sm:p-6">
           <button
             onClick={() => setOpenForm(true)}
-            className="flex w-full items-center justify-center gap-2 text-[18px] sm:text-[22px] md:text-[26px] font-semibold text-zinc-100"
+            className="flex w-full items-center justify-center gap-2 text-[16px] sm:text-[22px] md:text-[26px] font-semibold text-zinc-100"
           >
             Request Invite <Send className="h-5 w-5 sm:h-6 sm:w-6" />
           </button>
@@ -265,66 +275,95 @@ export default function TheDen_Landing_PixelPerfect() {
 
       {/* Modal Application Form */}
       {openForm && (
-        <div className="fixed inset-0 z-50 grid items-start md:place-items-center bg-black/70 backdrop-blur-sm overflow-y-auto">
-          <div className="w-full max-w-[760px] mx-4 my-6 rounded-[20px] md:rounded-[26px] border border-white/12 bg-white/6 p-4 sm:p-6 text-zinc-100 shadow-2xl">
-            <div className="mb-4 flex items-center justify-between">
-              <div className="text-2xl font-bold lowercase">request access — the den</div>
+        <div
+          role="dialog"
+          aria-modal="true"
+          className="
+            fixed inset-0 z-50
+            flex flex-col md:grid md:place-items-center
+            bg-black/70 backdrop-blur-sm
+            overscroll-contain
+          "
+          onClick={() => setOpenForm(false)}
+        >
+          {/* Stop click-through inside the card */}
+          <div
+            className="
+              modal-viewport modal-safe
+              w-full md:max-w-[760px]
+              md:mx-0 mx-0
+              md:my-10
+              border border-white/12 bg-white/6 text-zinc-100 shadow-2xl
+              rounded-none md:rounded-[26px]
+            "
+            onClick={(e) => e.stopPropagation()}
+          >
+            {/* Sticky header for easy close on phones */}
+            <div className="sticky top-0 z-10 flex items-center justify-between border-b border-white/10 bg-black/40 px-4 py-3 md:rounded-t-[26px]">
+              <div className="text-xl sm:text-2xl font-bold lowercase">request access — the den</div>
               <button
                 onClick={() => setOpenForm(false)}
-                className="rounded-xl border border-white/10 bg-white/10 p-2 hover:bg-white/20"
+                className="rounded-xl border border-white/10 bg-white/10 p-2 hover:bg-white/20 active:scale-[0.98]"
                 aria-label="close form"
               >
-                <X className="h-5 w-5" />
+                <X className="h-6 w-6" />
               </button>
             </div>
 
-            {/* Form (matches landing style) */}
-            <form className="grid grid-cols-1 gap-4 md:grid-cols-2">
-              <label className="text-xs text-zinc-300">
-                name
-                <input
-                  className="mt-1 w-full rounded-xl border border-white/10 bg-black/40 px-3 py-2 text-sm outline-none focus:border-emerald-400/60"
-                  placeholder="your name"
-                />
-              </label>
-              <label className="text-xs text-zinc-300">
-                email
-                <input
-                  className="mt-1 w-full rounded-xl border border-white/10 bg-black/40 px-3 py-2 text-sm outline-none focus:border-emerald-400/60"
-                  placeholder="you@domain.com"
-                />
-              </label>
-              <label className="text-xs text-zinc-300">
-                telegram @handle
-                <input
-                  className="mt-1 w-full rounded-xl border border-white/10 bg-black/40 px-3 py-2 text-sm outline-none focus:border-emerald-400/60"
-                  placeholder="@username"
-                />
-              </label>
-              <label className="text-xs text-zinc-300">
-                what do you trade?
-                <input
-                  className="mt-1 w-full rounded-xl border border-white/10 bg-black/40 px-3 py-2 text-sm outline-none focus:border-emerald-400/60"
-                  placeholder="equities, futures, crypto, options…"
-                />
-              </label>
-              <label className="col-span-1 text-xs text-zinc-300 md:col-span-2">
-                proof of work (link)
-                <input
-                  className="mt-1 w-full rounded-xl border border-white/10 bg-black/40 px-3 py-2 text-sm outline-none focus:border-emerald-400/60"
-                  placeholder="imgur/drive/telegraph link"
-                />
-              </label>
-              <label className="col-span-1 flex items-center gap-2 text-xs text-zinc-300 md:col-span-2">
-                <input type="checkbox" className="h-4 w-4 rounded border-white/20 bg-black/60" /> I agree to the rules (no spam, no signals-for-sale, post entries/exits when possible)
-              </label>
-              <button
-                type="submit"
-                className="col-span-1 mt-2 rounded-xl border border-white/10 bg-white/10 px-5 py-3 text-sm font-semibold hover:bg-white/20 md:col-span-2"
-              >
-                submit application
-              </button>
-            </form>
+            {/* Content area */}
+            <div className="p-4 sm:p-6">
+              <form className="grid grid-cols-1 gap-4 md:grid-cols-2">
+                <label className="text-xs text-zinc-300">
+                  name
+                  <input
+                    className="mt-1 w-full rounded-xl border border-white/10 bg-black/40 px-3 py-3 text-[16px] outline-none focus:border-emerald-400/60"
+                    placeholder="your name"
+                  />
+                </label>
+                <label className="text-xs text-zinc-300">
+                  email
+                  <input
+                    className="mt-1 w-full rounded-xl border border-white/10 bg-black/40 px-3 py-3 text-[16px] outline-none focus:border-emerald-400/60"
+                    placeholder="you@domain.com"
+                  />
+                </label>
+                <label className="text-xs text-zinc-300">
+                  telegram @handle
+                  <input
+                    className="mt-1 w-full rounded-xl border border-white/10 bg-black/40 px-3 py-3 text-[16px] outline-none focus:border-emerald-400/60"
+                    placeholder="@username"
+                  />
+                </label>
+                <label className="text-xs text-zinc-300">
+                  what do you trade?
+                  <input
+                    className="mt-1 w-full rounded-xl border border-white/10 bg-black/40 px-3 py-3 text-[16px] outline-none focus:border-emerald-400/60"
+                    placeholder="equities, futures, crypto, options…"
+                  />
+                </label>
+                <label className="col-span-1 text-xs text-zinc-300 md:col-span-2">
+                  proof of work (link)
+                  <input
+                    className="mt-1 w-full rounded-xl border border-white/10 bg-black/40 px-3 py-3 text-[16px] outline-none focus:border-emerald-400/60"
+                    placeholder="imgur/drive/telegraph link"
+                  />
+                </label>
+
+                <label className="col-span-1 flex items-start gap-2 text-xs text-zinc-300 md:col-span-2">
+                  <input type="checkbox" className="mt-0.5 h-5 w-5 rounded border-white/20 bg-black/60" />
+                  <span className="leading-snug">
+                    I agree to the rules (no spam, no signals-for-sale, post entries/exits when possible)
+                  </span>
+                </label>
+
+                <button
+                  type="submit"
+                  className="col-span-1 mt-2 rounded-xl border border-white/10 bg-white/10 px-5 py-3 text-[16px] font-semibold hover:bg-white/20 md:col-span-2"
+                >
+                  submit application
+                </button>
+              </form>
+            </div>
           </div>
         </div>
       )}
