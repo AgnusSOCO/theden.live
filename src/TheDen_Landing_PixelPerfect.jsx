@@ -1,6 +1,7 @@
 import React, { useEffect, useRef, useState } from "react";
 import { Send, X } from "lucide-react";
 
+/** Glass primitive */
 function Glass({ className = "", children }) {
   return (
     <div
@@ -15,11 +16,13 @@ function Glass({ className = "", children }) {
   );
 }
 
+/** Animated background: smooth GBM candles with continuous scroll */
 function ChartBG() {
   const COLS = 60;
   const SPACING = 22;
   const WIDTH = 1200;
   const HEIGHT = 1400;
+
   const PAD_TOP = 120;
   const PAD_BOTTOM = 320;
 
@@ -130,7 +133,13 @@ function ChartBG() {
   const offset = -SPACING * (candleElapsed / CANDLE_SECONDS);
 
   return (
-    <svg viewBox={`0 0 ${WIDTH} ${HEIGHT}`} className="absolute inset-0 h-full w-full select-none pointer-events-none">
+    <svg
+      viewBox={`0 0 ${WIDTH} ${HEIGHT}`}
+      preserveAspectRatio="xMidYMid slice"
+      width="100%"
+      height="100%"
+      className="absolute inset-0 h-full w-full select-none pointer-events-none"
+    >
       <defs>
         <linearGradient id="grad" x1="0" y1="0" x2="0" y2="1">
           <stop offset="0%" stopColor="#0a0a0a" />
@@ -138,8 +147,10 @@ function ChartBG() {
         </linearGradient>
       </defs>
 
+      {/* base */}
       <rect width={WIDTH} height={HEIGHT} fill="url(#grad)" />
 
+      {/* grid */}
       {Array.from({ length: 18 }).map((_, i) => (
         <line key={`r${i}`} x1={0} x2={WIDTH} y1={100 + i * 60} y2={100 + i * 60} stroke="#111" strokeWidth={1} />
       ))}
@@ -147,8 +158,10 @@ function ChartBG() {
         <line key={`c${i}`} y1={0} y2={HEIGHT} x1={60 + i * 24} x2={60 + i * 24} stroke="#101010" strokeWidth={1} />
       ))}
 
+      {/* darken */}
       <rect width={WIDTH} height={HEIGHT} fill="#000" opacity={0.25} />
 
+      {/* candles (translate for scroll) */}
       <g transform={`translate(${offset},0)`}>
         {viewData.map((d, i) => {
           const x = 80 + i * SPACING;
@@ -169,29 +182,53 @@ function ChartBG() {
         })}
       </g>
 
+      {/* film noise */}
       <rect width={WIDTH} height={HEIGHT} fill="#000" opacity={0.18} />
     </svg>
   );
 }
 
+/** Page */
 export default function TheDen_Landing_PixelPerfect() {
   const [openForm, setOpenForm] = useState(false);
 
   return (
-    <main className="relative mx-auto min-h-screen max-w-[1280px] overflow-hidden bg-black text-zinc-100 [aspect-ratio:3/4] sm:[aspect-ratio:3/4] md:[aspect-ratio:3/4] lg:[aspect-ratio:3/4] xl:[aspect-ratio:3/4] 2xl:[aspect-ratio:3/4] aspect-auto shadow-2xl">
+    <main
+      className="
+        relative mx-auto min-h-screen w-full max-w-[1280px]
+        bg-black text-zinc-100
+        aspect-auto md:[aspect-ratio:3/4]
+        shadow-2xl
+        overflow-hidden overflow-x-hidden
+        px-4 sm:px-6 md:px-8
+      "
+    >
+      {/* background chart */}
       <ChartBG />
 
-      <div className="relative z-20 flex items-start justify-between px-4 sm:px-6 md:px-8 pt-4 sm:pt-6 md:pt-8">
-        <h1 className="text-[42px] sm:text-[56px] md:text-[clamp(28px,9vw,72px)] leading-none font-extrabold tracking-tight lowercase text-zinc-200">the den</h1>
+      {/* top bar */}
+      <div
+        className="
+          relative z-20 flex items-start justify-between
+          px-2 sm:px-4 md:px-8
+          pt-[max(0.75rem,env(safe-area-inset-top))]
+          sm:pt-6 md:pt-8
+        "
+      >
+        <h1 className="text-[clamp(28px,9vw,72px)] leading-none font-extrabold tracking-tight lowercase text-zinc-200">
+          the den
+        </h1>
         <button
           onClick={() => setOpenForm(true)}
-          className="rounded-2xl border border-white/20 bg-white/8 px-5 py-2 text-[18px] text-zinc-100 backdrop-blur-xl transition hover:bg-white/12"
+          className="rounded-2xl border border-white/20 bg-white/8 px-4 py-2 text-[14px] sm:text-[16px] md:text-[18px] text-zinc-100 backdrop-blur-xl transition hover:bg-white/12"
         >
           Join Now
         </button>
       </div>
 
-      <div className="relative z-20 mt-[220px] sm:mt-[340px] md:mt-10 sm:mt-24 md:mt-[420px] lg:mt-[520px] px-4 sm:px-6 md:px-8">
+      {/* hero card + form area */}
+      <div className="relative z-20 mt-8 sm:mt-16 md:mt-[380px] lg:mt-[480px] px-4 sm:px-6 md:px-8">
+        {/* hero telegram card */}
         <Glass className="flex w-full max-w-[860px] items-center gap-4 p-5 sm:p-6">
           <div className="grid h-16 w-16 place-items-center rounded-full bg-[#2AABEE]">
             <svg width="28" height="28" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
@@ -204,6 +241,7 @@ export default function TheDen_Landing_PixelPerfect() {
           </div>
         </Glass>
 
+        {/* email field */}
         <Glass className="mt-5 w-full max-w-[860px] p-5 sm:p-6">
           <input
             placeholder="Email address"
@@ -211,20 +249,23 @@ export default function TheDen_Landing_PixelPerfect() {
           />
         </Glass>
 
+        {/* request invite button */}
         <Glass className="mt-5 inline-flex w-full max-w-[860px] items-center justify-center p-5 sm:p-6">
           <button
             onClick={() => setOpenForm(true)}
             className="flex w-full items-center justify-center gap-2 text-[18px] sm:text-[22px] md:text-[26px] font-semibold text-zinc-100"
           >
-            Request Invite
+            Request Invite <Send className="h-5 w-5 sm:h-6 sm:w-6" />
           </button>
         </Glass>
       </div>
 
-      <div className="pointer-events-none absolute inset-2 sm:inset-4 rounded-[20px] sm:rounded-[28px] border border-white/8 hidden xs:block sm:block" />
+      {/* border to mimic poster rounding (hide on very small screens) */}
+      <div className="pointer-events-none absolute inset-2 sm:inset-4 rounded-[20px] sm:rounded-[28px] border border-white/8 hidden sm:block" />
 
+      {/* Modal Application Form */}
       {openForm && (
-        <div className="fixed inset-0 z-50 grid place-items-center bg-black/70 backdrop-blur-sm overflow-y-auto">
+        <div className="fixed inset-0 z-50 grid items-start md:place-items-center bg-black/70 backdrop-blur-sm overflow-y-auto">
           <div className="w-full max-w-[760px] mx-4 my-6 rounded-[20px] md:rounded-[26px] border border-white/12 bg-white/6 p-4 sm:p-6 text-zinc-100 shadow-2xl">
             <div className="mb-4 flex items-center justify-between">
               <div className="text-2xl font-bold lowercase">request access — the den</div>
@@ -233,35 +274,54 @@ export default function TheDen_Landing_PixelPerfect() {
                 className="rounded-xl border border-white/10 bg-white/10 p-2 hover:bg-white/20"
                 aria-label="close form"
               >
-                ✕
+                <X className="h-5 w-5" />
               </button>
             </div>
 
+            {/* Form (matches landing style) */}
             <form className="grid grid-cols-1 gap-4 md:grid-cols-2">
               <label className="text-xs text-zinc-300">
                 name
-                <input className="mt-1 w-full rounded-xl border border-white/10 bg-black/40 px-3 py-2 text-sm outline-none focus:border-emerald-400/60" placeholder="your name" />
+                <input
+                  className="mt-1 w-full rounded-xl border border-white/10 bg-black/40 px-3 py-2 text-sm outline-none focus:border-emerald-400/60"
+                  placeholder="your name"
+                />
               </label>
               <label className="text-xs text-zinc-300">
                 email
-                <input className="mt-1 w-full rounded-xl border border-white/10 bg-black/40 px-3 py-2 text-sm outline-none focus:border-emerald-400/60" placeholder="you@domain.com" />
+                <input
+                  className="mt-1 w-full rounded-xl border border-white/10 bg-black/40 px-3 py-2 text-sm outline-none focus:border-emerald-400/60"
+                  placeholder="you@domain.com"
+                />
               </label>
               <label className="text-xs text-zinc-300">
                 telegram @handle
-                <input className="mt-1 w-full rounded-xl border border-white/10 bg-black/40 px-3 py-2 text-sm outline-none focus:border-emerald-400/60" placeholder="@username" />
+                <input
+                  className="mt-1 w-full rounded-xl border border-white/10 bg-black/40 px-3 py-2 text-sm outline-none focus:border-emerald-400/60"
+                  placeholder="@username"
+                />
               </label>
               <label className="text-xs text-zinc-300">
                 what do you trade?
-                <input className="mt-1 w-full rounded-xl border border-white/10 bg-black/40 px-3 py-2 text-sm outline-none focus:border-emerald-400/60" placeholder="equities, futures, crypto, options…" />
+                <input
+                  className="mt-1 w-full rounded-xl border border-white/10 bg-black/40 px-3 py-2 text-sm outline-none focus:border-emerald-400/60"
+                  placeholder="equities, futures, crypto, options…"
+                />
               </label>
               <label className="col-span-1 text-xs text-zinc-300 md:col-span-2">
                 proof of work (link)
-                <input className="mt-1 w-full rounded-xl border border-white/10 bg-black/40 px-3 py-2 text-sm outline-none focus:border-emerald-400/60" placeholder="imgur/drive/telegraph link" />
+                <input
+                  className="mt-1 w-full rounded-xl border border-white/10 bg-black/40 px-3 py-2 text-sm outline-none focus:border-emerald-400/60"
+                  placeholder="imgur/drive/telegraph link"
+                />
               </label>
               <label className="col-span-1 flex items-center gap-2 text-xs text-zinc-300 md:col-span-2">
                 <input type="checkbox" className="h-4 w-4 rounded border-white/20 bg-black/60" /> I agree to the rules (no spam, no signals-for-sale, post entries/exits when possible)
               </label>
-              <button type="submit" className="col-span-1 mt-2 rounded-xl border border-white/10 bg-white/10 px-5 py-3 text-sm font-semibold hover:bg-white/20 md:col-span-2">
+              <button
+                type="submit"
+                className="col-span-1 mt-2 rounded-xl border border-white/10 bg-white/10 px-5 py-3 text-sm font-semibold hover:bg-white/20 md:col-span-2"
+              >
                 submit application
               </button>
             </form>
