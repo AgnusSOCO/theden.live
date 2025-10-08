@@ -1,5 +1,5 @@
 import React, { useRef, useState } from "react";
-import ChartBG from "@/components/chart/ChartBG/ChartBG";
+import ChartBG from "./components/chart/ChartBG/ChartBG";
 import Glass from "./components/Glass";
 import Modal from "./components/Modal";
 import AccessForm from "./features/AccessForm";
