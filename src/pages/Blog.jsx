@@ -53,22 +53,22 @@ export default function Blog() {
       {/* Stats Card */}
       <div className="relative z-20 mt-8 px-2 sm:px-4 md:px-8">
         <Glass className="flex flex-wrap gap-6 sm:gap-12 p-5 sm:p-6 max-w-[860px]">
-                    <div>
-                      <div className="text-xs text-zinc-400 uppercase tracking-wider">starting</div>
-                      <div className="text-2xl sm:text-3xl font-bold text-zinc-100">${stats.starting.toLocaleString()}</div>
-                    </div>
-                    <div>
-                      <div className="text-xs text-zinc-400 uppercase tracking-wider">current</div>
-                      <div className="text-2xl sm:text-3xl font-bold text-emerald-400">${stats.current.toLocaleString()}</div>
-                    </div>
-                    <div>
-                      <div className="text-xs text-zinc-400 uppercase tracking-wider">progress</div>
-                      <div className="text-2xl sm:text-3xl font-bold text-emerald-400">+{(((stats.current - stats.starting) / stats.starting) * 100).toFixed(2)}%</div>
-                    </div>
-                    <div>
-                      <div className="text-xs text-zinc-400 uppercase tracking-wider">goal</div>
-                      <div className="text-2xl sm:text-3xl font-bold text-zinc-100">${stats.goal.toLocaleString()}</div>
-                    </div>
+          <div>
+            <div className="text-xs text-zinc-400 uppercase tracking-wider">starting</div>
+            <div className="text-2xl sm:text-3xl font-bold text-zinc-100">${stats.starting.toLocaleString()}</div>
+          </div>
+          <div>
+            <div className="text-xs text-zinc-400 uppercase tracking-wider">current</div>
+            <div className="text-2xl sm:text-3xl font-bold text-emerald-400">${stats.current.toLocaleString()}</div>
+          </div>
+          <div>
+            <div className="text-xs text-zinc-400 uppercase tracking-wider">progress</div>
+            <div className="text-2xl sm:text-3xl font-bold text-emerald-400">+{(((stats.current - stats.starting) / stats.starting) * 100).toFixed(2)}%</div>
+          </div>
+          <div>
+            <div className="text-xs text-zinc-400 uppercase tracking-wider">goal</div>
+            <div className="text-2xl sm:text-3xl font-bold text-zinc-100">${stats.goal.toLocaleString()}</div>
+          </div>
         </Glass>
       </div>
 
