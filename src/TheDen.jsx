@@ -1,8 +1,10 @@
 import React, { useRef, useState } from "react";
+import { Link } from "react-router-dom";
 import ChartBG from "./components/chart/ChartBG/ChartBG";
 import Glass from "./components/Glass";
 import Modal from "./components/Modal";
 import AccessForm from "./features/AccessForm";
+import { TrendingUp } from "lucide-react";
 
 export default function TheDen() {
   const [openForm, setOpenForm] = useState(false);
@@ -35,15 +37,24 @@ export default function TheDen() {
         <h1 className="text-[clamp(28px,9vw,72px)] leading-none font-extrabold tracking-tight lowercase text-zinc-200">
           the den
         </h1>
-        <button
-          ref={joinBtnRef}
-          onClick={() => setOpenForm(true)}
-          className="rounded-2xl border border-white/20 bg-white/8 px-4 py-2 text-[14px] sm:text-[16px] md:text-[18px] text-zinc-100 backdrop-blur-xl transition hover:bg-white/12"
-          aria-haspopup="dialog"
-          aria-controls="access-modal"
-        >
-          Join Now
-        </button>
+                <div className="flex items-center gap-2 sm:gap-3">
+                  <Link
+                    to="/blog"
+                    className="flex items-center gap-1.5 rounded-2xl border border-white/20 bg-white/8 px-3 sm:px-4 py-2 text-[14px] sm:text-[16px] md:text-[18px] text-zinc-100 backdrop-blur-xl transition hover:bg-white/12"
+                  >
+                    <TrendingUp className="h-4 w-4" />
+                    <span className="hidden sm:inline">1-10k</span>
+                  </Link>
+                  <button
+                    ref={joinBtnRef}
+                    onClick={() => setOpenForm(true)}
+                    className="rounded-2xl border border-white/20 bg-white/8 px-4 py-2 text-[14px] sm:text-[16px] md:text-[18px] text-zinc-100 backdrop-blur-xl transition hover:bg-white/12"
+                    aria-haspopup="dialog"
+                    aria-controls="access-modal"
+                  >
+                    Join Now
+                  </button>
+                </div>
       </div>
 
       {/* hero card + form area */}
