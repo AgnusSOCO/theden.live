@@ -1,17 +1,16 @@
 import React from "react";
 import { Link, useParams, Navigate } from "react-router-dom";
 import { ArrowLeft, Calendar, Tag, ChevronLeft, ChevronRight } from "lucide-react";
+import ReactMarkdown from "react-markdown";
 import Glass from "../components/Glass";
-import { blogPosts, getPostById } from "../data/blogPosts";
+import { getAllPosts, getPostById } from "../utils/loadPosts";
 
 export default function BlogPost() {
   const { id } = useParams();
   const post = getPostById(id);
 
-  // Sort posts by date for navigation
-  const sortedPosts = [...blogPosts].sort((a, b) => 
-    new Date(b.date) - new Date(a.date)
-  );
+    // Sort posts by date for navigation
+    const sortedPosts = getAllPosts();
   
   const currentIndex = sortedPosts.findIndex(p => p.id === id);
   const prevPost = currentIndex < sortedPosts.length - 1 ? sortedPosts[currentIndex + 1] : null;
@@ -84,21 +83,22 @@ export default function BlogPost() {
           ))}
         </div>
 
-        {/* Content */}
-        <Glass className="mt-8 p-6 sm:p-8">
-          <div 
-            className="prose prose-invert prose-zinc max-w-none
-              prose-headings:lowercase prose-headings:font-bold prose-headings:text-zinc-200
-              prose-h3:text-lg prose-h3:mt-6 prose-h3:mb-3
-              prose-p:text-zinc-300 prose-p:leading-relaxed
-              prose-ul:text-zinc-300 prose-ul:my-4
-              prose-li:my-1
-              prose-strong:text-emerald-400 prose-strong:font-semibold
-              prose-a:text-emerald-400 prose-a:no-underline hover:prose-a:underline
-            "
-            dangerouslySetInnerHTML={{ __html: post.content }}
-          />
-        </Glass>
+                {/* Content */}
+                <Glass className="mt-8 p-6 sm:p-8">
+                  <div 
+                    className="blog-content text-zinc-300 leading-relaxed
+                      [&_h2]:text-xl [&_h2]:font-bold [&_h2]:text-zinc-200 [&_h2]:lowercase [&_h2]:mt-6 [&_h2]:mb-3
+                      [&_h3]:text-lg [&_h3]:font-bold [&_h3]:text-zinc-200 [&_h3]:lowercase [&_h3]:mt-6 [&_h3]:mb-3
+                      [&_p]:mb-4 [&_p]:text-zinc-300
+                      [&_ul]:my-4 [&_ul]:pl-6 [&_ul]:list-disc
+                      [&_li]:my-1 [&_li]:text-zinc-300
+                      [&_strong]:text-emerald-400 [&_strong]:font-semibold
+                      [&_a]:text-emerald-400 [&_a]:no-underline hover:[&_a]:underline
+                    "
+                  >
+                    <ReactMarkdown>{post.content}</ReactMarkdown>
+                  </div>
+                </Glass>
 
         {/* Navigation */}
         <div className="flex justify-between items-center mt-8 gap-4">

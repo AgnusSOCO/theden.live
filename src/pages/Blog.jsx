@@ -2,13 +2,12 @@ import React from "react";
 import { Link } from "react-router-dom";
 import { ArrowLeft, Calendar, Tag } from "lucide-react";
 import Glass from "../components/Glass";
-import { blogPosts } from "../data/blogPosts";
+import { getAllPosts, getStats } from "../utils/loadPosts";
 
 export default function Blog() {
-  // Sort posts by date (newest first)
-  const sortedPosts = [...blogPosts].sort((a, b) => 
-    new Date(b.date) - new Date(a.date)
-  );
+  // Get posts and stats from markdown files
+  const sortedPosts = getAllPosts();
+  const stats = getStats();
 
   return (
     <main
@@ -54,22 +53,22 @@ export default function Blog() {
       {/* Stats Card */}
       <div className="relative z-20 mt-8 px-2 sm:px-4 md:px-8">
         <Glass className="flex flex-wrap gap-6 sm:gap-12 p-5 sm:p-6 max-w-[860px]">
-          <div>
-            <div className="text-xs text-zinc-400 uppercase tracking-wider">starting</div>
-            <div className="text-2xl sm:text-3xl font-bold text-zinc-100">$1,000</div>
-          </div>
-          <div>
-            <div className="text-xs text-zinc-400 uppercase tracking-wider">current</div>
-            <div className="text-2xl sm:text-3xl font-bold text-emerald-400">$1,047.50</div>
-          </div>
-          <div>
-            <div className="text-xs text-zinc-400 uppercase tracking-wider">progress</div>
-            <div className="text-2xl sm:text-3xl font-bold text-emerald-400">+4.75%</div>
-          </div>
-          <div>
-            <div className="text-xs text-zinc-400 uppercase tracking-wider">goal</div>
-            <div className="text-2xl sm:text-3xl font-bold text-zinc-100">$10,000</div>
-          </div>
+                    <div>
+                      <div className="text-xs text-zinc-400 uppercase tracking-wider">starting</div>
+                      <div className="text-2xl sm:text-3xl font-bold text-zinc-100">${stats.starting.toLocaleString()}</div>
+                    </div>
+                    <div>
+                      <div className="text-xs text-zinc-400 uppercase tracking-wider">current</div>
+                      <div className="text-2xl sm:text-3xl font-bold text-emerald-400">${stats.current.toLocaleString()}</div>
+                    </div>
+                    <div>
+                      <div className="text-xs text-zinc-400 uppercase tracking-wider">progress</div>
+                      <div className="text-2xl sm:text-3xl font-bold text-emerald-400">+{(((stats.current - stats.starting) / stats.starting) * 100).toFixed(2)}%</div>
+                    </div>
+                    <div>
+                      <div className="text-xs text-zinc-400 uppercase tracking-wider">goal</div>
+                      <div className="text-2xl sm:text-3xl font-bold text-zinc-100">${stats.goal.toLocaleString()}</div>
+                    </div>
         </Glass>
       </div>
 
@@ -78,7 +77,7 @@ export default function Blog() {
         <div className="h-2 bg-white/10 rounded-full overflow-hidden">
           <div 
             className="h-full bg-gradient-to-r from-emerald-500 to-emerald-400 rounded-full transition-all duration-500"
-            style={{ width: `${((1047.50 - 1000) / (10000 - 1000)) * 100}%` }}
+            style={{ width: `${((stats.current - stats.starting) / (stats.goal - stats.starting)) * 100}%` }}
           />
         </div>
         <div className="flex justify-between mt-1 text-xs text-zinc-500">
