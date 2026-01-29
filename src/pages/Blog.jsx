@@ -60,11 +60,11 @@ export default function Blog() {
           </div>
           <div>
             <div className="text-xs text-zinc-400 uppercase tracking-wider">current</div>
-            <div className="text-2xl sm:text-3xl font-bold text-emerald-400">$1,047.50</div>
+            <div className="text-2xl sm:text-3xl font-bold text-emerald-400">$1,000</div>
           </div>
           <div>
             <div className="text-xs text-zinc-400 uppercase tracking-wider">progress</div>
-            <div className="text-2xl sm:text-3xl font-bold text-emerald-400">+4.75%</div>
+            <div className="text-2xl sm:text-3xl font-bold text-emerald-400">0%</div>
           </div>
           <div>
             <div className="text-xs text-zinc-400 uppercase tracking-wider">goal</div>
