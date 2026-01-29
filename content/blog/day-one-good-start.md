@@ -9,8 +9,6 @@ tags:
 
 ## Trade 1 (CC/USDT SHORT):
 
-<!-- coin:canton -->
-
 I started off the challenge with a super solid CC/USDT trade, very solid volume. good entry and a perfect exit before a reattempted breakout.
 
 ![](/images/uploads/Screenshot%202026-01-29%20154517.png)
