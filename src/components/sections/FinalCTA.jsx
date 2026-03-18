@@ -4,9 +4,9 @@ import GlowButton from "../GlowButton";
 import useReveal from "../../hooks/useReveal";
 
 /**
- * FinalCTA — closing conversion section with strong copy and CTA.
+ * FinalCTA — closing conversion section. Drives to pricing/checkout.
  */
-export default function FinalCTA({ onApplyClick }) {
+export default function FinalCTA({ onCTAClick }) {
   const ref = useReveal();
 
   return (
@@ -34,13 +34,13 @@ export default function FinalCTA({ onApplyClick }) {
         <div className="mt-8 flex flex-col sm:flex-row items-center justify-center gap-3">
           <GlowButton
             size="xl"
-            onClick={onApplyClick}
+            onClick={onCTAClick}
             id="final_cta"
             section="final_close"
           >
-            Apply for Access <ArrowRight className="h-5 w-5" />
+            Choose Your Plan <ArrowRight className="h-5 w-5" />
           </GlowButton>
-          <span className="text-xs text-zinc-600">free to apply · instant access</span>
+          <span className="text-xs text-zinc-600">instant access · cancel anytime</span>
         </div>
 
         {/* Risk disclaimer */}

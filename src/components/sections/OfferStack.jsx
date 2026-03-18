@@ -22,8 +22,9 @@ const ITEMS = [
 
 /**
  * OfferStack — premium "everything included" showcase.
+ * CTA scrolls to pricing section for checkout.
  */
-export default function OfferStack({ onApplyClick }) {
+export default function OfferStack({ onCTAClick }) {
   const ref = useReveal();
 
   return (
@@ -60,11 +61,11 @@ export default function OfferStack({ onApplyClick }) {
             </p>
             <GlowButton
               size="lg"
-              onClick={onApplyClick}
+              onClick={onCTAClick}
               id="offer_cta"
               section="offer_stack"
             >
-              Apply for Access
+              Choose Your Plan
             </GlowButton>
           </div>
         </div>

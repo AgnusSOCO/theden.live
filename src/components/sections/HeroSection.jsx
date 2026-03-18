@@ -1,24 +1,13 @@
 import React, { useRef } from "react";
-import { ArrowRight, Send } from "lucide-react";
+import { ArrowRight } from "lucide-react";
 import ChartBG from "../chart/ChartBG/ChartBG";
 import GlowButton from "../GlowButton";
-import { trackFormSubmit } from "../../hooks/useAnalytics";
 
 /**
- * HeroSection — full-viewport hero with ChartBG backdrop, hook headline, inline email capture.
+ * HeroSection — full-viewport hero with ChartBG backdrop.
+ * CTA scrolls to pricing section for immediate checkout.
  */
-export default function HeroSection({ onApplyClick }) {
-  const emailRef = useRef(null);
-
-  const handleInlineSubmit = (e) => {
-    e.preventDefault();
-    const email = emailRef.current?.value?.trim();
-    if (email) {
-      trackFormSubmit("hero_email", { email });
-      onApplyClick?.();
-    }
-  };
-
+export default function HeroSection({ onCTAClick }) {
   return (
     <section
       id="hero"
@@ -44,12 +33,12 @@ export default function HeroSection({ onApplyClick }) {
           the den
         </h1>
         <GlowButton
-          onClick={onApplyClick}
+          onClick={onCTAClick}
           size="sm"
           id="nav_cta"
           section="hero_nav"
         >
-          Apply for Access
+          Get Started
         </GlowButton>
       </div>
 
@@ -77,30 +66,24 @@ export default function HeroSection({ onApplyClick }) {
           trading education, and mentorship — all in one place.
         </p>
 
-        {/* Inline email capture */}
-        <form
-          onSubmit={handleInlineSubmit}
-          className="animate-fade-up-delay-2 opacity-0 mt-8 flex flex-col sm:flex-row gap-3 max-w-xl"
-        >
-          <div className="flex-1 glass flex items-center px-4">
-            <input
-              ref={emailRef}
-              type="email"
-              required
-              placeholder="enter your email"
-              className="w-full bg-transparent py-4 text-[16px] text-zinc-100 placeholder:text-zinc-500 outline-none"
-            />
-          </div>
+        {/* CTA buttons */}
+        <div className="animate-fade-up-delay-2 opacity-0 mt-8 flex flex-col sm:flex-row gap-3 max-w-xl">
           <button
-            type="submit"
-            className="glow-btn px-6 py-4 text-[15px] font-bold flex items-center justify-center gap-2 min-w-[180px]"
+            onClick={onCTAClick}
+            className="glow-btn px-8 py-4 text-[16px] sm:text-[18px] font-bold flex items-center justify-center gap-2"
           >
-            Get Access <ArrowRight className="h-4 w-4" />
+            Join Now — See Plans <ArrowRight className="h-5 w-5" />
           </button>
-        </form>
+          <a
+            href="#features"
+            className="rounded-2xl border border-white/16 bg-white/6 backdrop-blur-xl px-6 py-4 text-[15px] sm:text-[16px] font-semibold text-zinc-300 text-center hover:bg-white/10 transition-all duration-300"
+          >
+            Learn More
+          </a>
+        </div>
 
-        <p className="animate-fade-up-delay-2 opacity-0 mt-3 text-[11px] sm:text-xs text-zinc-600">
-          free to apply · no credit card required · 500+ active members
+        <p className="animate-fade-up-delay-2 opacity-0 mt-4 text-[11px] sm:text-xs text-zinc-600">
+          instant access after payment · cancel anytime · 500+ active members
         </p>
       </div>
     </section>

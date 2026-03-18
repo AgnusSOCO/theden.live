@@ -36,7 +36,7 @@ export default function StickyCTA({ onCtaClick, label = "Apply for Access" }) {
         <div className="glass-strong flex items-center justify-between p-3 sm:p-4">
           <div className="hidden sm:block">
             <div className="text-sm font-semibold text-zinc-200">ready to start trading with structure?</div>
-            <div className="text-xs text-zinc-500">join 500+ traders in the den</div>
+            <div className="text-xs text-zinc-500">plans from $49/mo · instant access · cancel anytime</div>
           </div>
           <button
             onClick={handleClick}

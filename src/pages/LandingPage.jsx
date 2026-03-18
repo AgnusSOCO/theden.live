@@ -3,6 +3,7 @@ import HeroSection from "../components/sections/HeroSection";
 import TrustBar from "../components/sections/TrustBar";
 import WhyDifferent from "../components/sections/WhyDifferent";
 import HowItWorks from "../components/sections/HowItWorks";
+import Pricing from "../components/sections/Pricing";
 import OfferStack from "../components/sections/OfferStack";
 import ForWho from "../components/sections/ForWho";
 import SocialProof from "../components/sections/SocialProof";
@@ -10,29 +11,29 @@ import FAQSection from "../components/sections/FAQSection";
 import FinalCTA from "../components/sections/FinalCTA";
 import Footer from "../components/sections/Footer";
 import StickyCTA from "../components/StickyCTA";
-import LeadCaptureModal from "../components/LeadCaptureModal";
 import useExitIntent from "../hooks/useExitIntent";
 import { trackScrollDepth } from "../hooks/useAnalytics";
+import { goToCheckout, scrollToPricing } from "../hooks/useCheckout";
 
 /**
  * LandingPage — main sales funnel page composing all sections.
+ * All CTAs now drive to pricing/checkout instead of lead capture.
  */
 export default function LandingPage() {
-  const [modalOpen, setModalOpen] = useState(false);
-  const [modalVariant, setModalVariant] = useState("default");
-
-  const openApply = useCallback(() => {
-    setModalVariant("default");
-    setModalOpen(true);
+  // Handle plan checkout — redirect to Stripe
+  const handleCheckout = useCallback((plan) => {
+    goToCheckout(plan);
   }, []);
 
-  // Exit intent modal
+  // Scroll to pricing section — used by all "Get Started" CTAs
+  const handleCTA = useCallback(() => {
+    scrollToPricing();
+  }, []);
+
+  // Exit intent — scroll to pricing instead of showing a modal
   const handleExitIntent = useCallback(() => {
-    if (!modalOpen) {
-      setModalVariant("exit");
-      setModalOpen(true);
-    }
-  }, [modalOpen]);
+    scrollToPricing();
+  }, []);
 
   useExitIntent(handleExitIntent);
 
@@ -59,26 +60,20 @@ export default function LandingPage() {
 
   return (
     <div className="relative bg-black text-zinc-100 overflow-x-hidden sticky-cta-spacer">
-      <HeroSection onApplyClick={openApply} />
+      <HeroSection onCTAClick={handleCTA} />
       <TrustBar />
       <WhyDifferent />
       <HowItWorks />
-      <OfferStack onApplyClick={openApply} />
+      <Pricing onCheckout={handleCheckout} />
+      <OfferStack onCTAClick={handleCTA} />
       <ForWho />
       <SocialProof />
       <FAQSection />
-      <FinalCTA onApplyClick={openApply} />
+      <FinalCTA onCTAClick={handleCTA} />
       <Footer />
 
       {/* Sticky CTA */}
-      <StickyCTA onCtaClick={openApply} />
-
-      {/* Lead Capture Modal */}
-      <LeadCaptureModal
-        open={modalOpen}
-        onClose={() => setModalOpen(false)}
-        variant={modalVariant}
-      />
+      <StickyCTA onCtaClick={handleCTA} label="See Plans & Pricing" />
     </div>
   );
 }
