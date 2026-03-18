@@ -21,8 +21,6 @@ const PLANS = [
       "community access",
       "prop firm guidance",
     ],
-    // Replace with your actual Stripe Payment Link
-    checkoutUrl: "https://buy.stripe.com/YOUR_MONTHLY_LINK",
   },
   {
     id: "quarterly",
@@ -41,7 +39,6 @@ const PLANS = [
       "priority community support",
       "accountability check-ins",
     ],
-    checkoutUrl: "https://buy.stripe.com/YOUR_QUARTERLY_LINK",
   },
   {
     id: "lifetime",
@@ -60,7 +57,6 @@ const PLANS = [
       "direct mentor access",
       "exclusive lifetime channel",
     ],
-    checkoutUrl: "https://buy.stripe.com/YOUR_LIFETIME_LINK",
   },
 ];
 
@@ -141,7 +137,9 @@ function PricingCard({ plan, onCheckout }) {
 }
 
 /**
- * Pricing — subscription tier selection with Stripe checkout integration.
+ * Pricing — subscription tier selection.
+ * onCheckout receives the plan object; parent calls goToCheckout(plan)
+ * which hits /api/create-checkout to create a Stripe Checkout Session.
  */
 export default function Pricing({ onCheckout }) {
   return (
@@ -162,9 +160,12 @@ export default function Pricing({ onCheckout }) {
           ))}
         </div>
 
-        <div className="mt-8 text-center">
+        <div className="mt-8 text-center space-y-1">
           <p className="text-xs text-zinc-600">
             secure payment via Stripe · cancel anytime · instant access after payment
+          </p>
+          <p className="text-[10px] text-zinc-700">
+            🔒 256-bit SSL encryption · your payment info is never stored on our servers
           </p>
         </div>
       </div>
