@@ -45,7 +45,6 @@ export default function useOrders({ priceRef, dataRef, formingStartRef }) {
           fillsRef.current.unshift({ id: o.id, price: o.price, side: o.side, ts: performance.now() });
           if (fillsRef.current.length > MAX_RECENT_FILLS) fillsRef.current.pop();
           restingRef.current.splice(i, 1);
-          sound(o.side === "buy" ? 520 : 360);
         }
       }
 

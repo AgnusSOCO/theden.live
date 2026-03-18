@@ -1,10 +1,9 @@
-import React, { useRef } from "react";
+import React from "react";
 import { ArrowRight } from "lucide-react";
-import ChartBG from "../chart/ChartBG/ChartBG";
 import GlowButton from "../GlowButton";
 
 /**
- * HeroSection — full-viewport hero with ChartBG backdrop.
+ * HeroSection — full-viewport hero (ChartBG is now rendered at page level as fixed background).
  * CTA scrolls to pricing section for immediate checkout.
  */
 export default function HeroSection({ onCTAClick }) {
@@ -13,11 +12,8 @@ export default function HeroSection({ onCTAClick }) {
       id="hero"
       className="relative min-h-[100dvh] flex flex-col justify-end pb-12 sm:pb-16 md:pb-20"
     >
-      {/* Chart background */}
-      <ChartBG />
-
-      {/* Gradient overlay for readability */}
-      <div className="absolute inset-0 bg-gradient-to-t from-black via-black/60 to-transparent pointer-events-none z-10" />
+      {/* Gradient overlay for readability — sits above the fixed ChartBG */}
+      <div className="absolute inset-0 bg-gradient-to-t from-black via-black/50 to-black/20 pointer-events-none z-10" />
 
       {/* Top bar */}
       <div
